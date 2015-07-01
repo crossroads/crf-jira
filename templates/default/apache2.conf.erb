@@ -1,0 +1,32 @@
+<VirtualHost <%= @node[:confluence][:bind_address] %>:80>
+
+  ServerName  <%= @node[:confluence][:domainname] %>
+  ServerAlias <%= @node[:confluence][:hostname] %>
+
+  RewriteEngine On
+
+  RewriteRule /(.*) https://<%= @node[:confluence][:domainname] %>/$1 [R=permanent,NE]
+
+</VirtualHost>
+
+<VirtualHost <%= @node[:confluence][:bind_address] %>:443>
+
+  ServerName  <%= @node[:confluence][:domainname] %>
+  ServerAlias <%= @node[:confluence][:hostname] %>
+
+  SSLEngine On
+
+  #SSLCertificateFile      /etc/pki/tls/certs/<%= @node[:fqdn] %>.crt
+  #SSLCertificateKeyFile   /etc/pki/tls/private/<%= @node[:fqdn] %>.key
+  #SSLCertificateChainFile /etc/pki/tls/certs/ca_intermediate.crt
+
+  ProxyRequests Off
+  <Proxy *>
+    Order deny,allow
+    Allow from all
+  </Proxy>
+
+  ProxyPass        / http://localhost:<%= @node[:confluence][:bind_http_port] %>/
+  ProxyPassReverse / http://localhost:<%= @node[:confluence][:bind_http_port] %>/
+
+</VirtualHost>
