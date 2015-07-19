@@ -22,8 +22,6 @@ override['apache']['default_site_enabled'] = false
 
 override['java']['install_flavor']                 = 'oracle'
 override['java']['jdk_version']                    = '8'
-override['java']['jdk']['8']['x86_64']['url']      = 'http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.tar.gz'
-override['java']['jdk']['8']['x86_64']['checksum'] = '1ad9a5be748fb75b31cd3bd3aa339cac'
 
 override['postgresql']['enable_pgdg_yum']          = true
 override['postgresql']['version']                  = '9.4'
