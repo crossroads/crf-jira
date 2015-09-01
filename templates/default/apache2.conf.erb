@@ -22,8 +22,7 @@
 
   ProxyRequests Off
   <Proxy *>
-    Order deny,allow
-    Allow from all
+    Require all granted
   </Proxy>
 
   ProxyPass        / http://localhost:<%= @node[:confluence][:bind_http_port] %>/

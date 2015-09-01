@@ -133,7 +133,6 @@ end
 firewall_rule 'confluence-ports' do
   protocol  :tcp
   port      [80, 443]
-  action    :allow
 end
 
 template "/usr/lib/systemd/system/confluence.service" do
