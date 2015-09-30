@@ -31,7 +31,7 @@ override['postgresql']['server']['packages']       = [ "postgresql#{node['postgr
                                                        "postgresql#{node['postgresql']['version'].split('.').join}-jdbc" ]
 override['postgresql']['server']['service_name']   = 'postgresql-9.4'
 
-default[:confluence][:version]           = '5.7.4'
+default[:confluence][:version]           = '5.8.10'
 default[:confluence][:install_path]      = '/opt/confluence'
 default[:confluence][:shared_path]       = '/var/confluence'
 default[:confluence][:run_user]          = 'confluence'
