@@ -1,4 +1,4 @@
-name             'chef-confluence'
+name             'crf-confluence'
 maintainer       'Crossroads Foundation'
 maintainer_email 'itdept@crossroads.org.hk'
 license          'Apache 2.0'

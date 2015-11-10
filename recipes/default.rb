@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: chef-confluence
+# Cookbook Name:: crf-confluence
 # Recipe:: default
 #
 # Copyright 2015 Crossroads Foundation
