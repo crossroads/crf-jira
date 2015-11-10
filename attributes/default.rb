@@ -20,18 +20,7 @@
 
 override['apache']['default_site_enabled'] = false
 
-override['java']['install_flavor']                 = 'oracle'
-override['java']['jdk_version']                    = '8'
-
-override['postgresql']['enable_pgdg_yum']          = true
-override['postgresql']['version']                  = '9.4'
-override['postgresql']['dir']                      = "/var/lib/pgsql/#{node['postgresql']['version']}/data"
-override['postgresql']['config']['data_directory'] = "#{node['postgresql']['dir']}"
-override['postgresql']['server']['packages']       = [ "postgresql#{node['postgresql']['version'].split('.').join}-server",
-                                                       "postgresql#{node['postgresql']['version'].split('.').join}-jdbc" ]
-override['postgresql']['server']['service_name']   = 'postgresql-9.4'
-
-default[:confluence][:version]           = '5.8.13'
+default[:confluence][:version]           = '5.8.16'
 default[:confluence][:install_path]      = '/opt/confluence'
 default[:confluence][:shared_path]       = '/var/confluence'
 default[:confluence][:run_user]          = 'confluence'
