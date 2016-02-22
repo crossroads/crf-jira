@@ -20,7 +20,7 @@
 
 override['apache']['default_site_enabled'] = false
 
-default[:confluence][:version]           = '5.8.16'
+default[:confluence][:version]           = '5.9.5'
 default[:confluence][:install_path]      = '/opt/confluence'
 default[:confluence][:shared_path]       = '/var/confluence'
 default[:confluence][:run_user]          = 'confluence'
