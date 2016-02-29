@@ -47,25 +47,27 @@ end
 # Create the Confluence database user.
 postgresql_database_user node['confluence']['database_user'] do
   connection(
-    :host      => '127.0.0.1',
-    :port      => node['postgresql']['config']['port'],
-    :username  => 'postgres',
-    :password  => node['postgresql']['password']['postgres']
+    :host      => node['confluence']['database_password'],
+    :port      => node['confluence']['database_port'], 
+    :username  => node['confluence']['database_superuser'],
+    :password  => node['confluence']['database_superuser_password']
   )
   password node['confluence']['database_password']
   action   :create
+  only_if { node['confluence']['create_database'] == true }
 end
 
 # Create the Confluence database.
 postgresql_database node['confluence']['database_name'] do
   connection(
-    :host      => '127.0.0.1',
-    :port      => node['postgresql']['config']['port'],
-    :username  => 'postgres',
-    :password  => node['postgresql']['password']['postgres']
+    :host      => node['confluence']['database_password'],
+    :port      => node['confluence']['database_port'],
+    :username  => node['confluence']['database_superuser'],
+    :password  => node['confluence']['database_superuser_password']
   )
   owner  node['confluence']['database_user']
   action :create
+  only_if { node['confluence']['create_database'] == true }
 end
 
 unless FileTest.exists?("#{node['confluence']['install_path']}/#{node['confluence']['version']}")
