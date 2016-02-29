@@ -20,19 +20,26 @@
 
 override['apache']['default_site_enabled'] = false
 
-default[:confluence][:version]           = '5.9.5'
-default[:confluence][:install_path]      = '/opt/confluence'
-default[:confluence][:shared_path]       = '/var/confluence'
-default[:confluence][:run_user]          = 'confluence'
-default[:confluence][:log_dir]           = '/var/log/confluence'
-default[:confluence][:pid_dir]           = "#{node[:confluence][:install_path]}/current/work"
-default[:confluence][:database_name]     = 'confluence'
-default[:confluence][:database_user]     = 'confluence'
-default[:confluence][:database_password] = secure_password
-default[:confluence][:bind_tomcat_port]  = '8000'
-default[:confluence][:bind_http_port]    = '8080'
-default[:confluence][:bind_ajp_port]     = '8009'
-default[:confluence][:context_path]      = '/'
-default[:confluence][:hostname]          = 'confluence'
-default[:confluence][:domainname]        = "#{node[:confluence][:hostname]}.#{node[:domain]}"
-default[:confluence][:bind_address]      = '_default_'
+default['confluence']['version']                      = '5.9.5'
+default['confluence']['install_path']                 = '/opt/confluence'
+default['confluence']['shared_path']                  = '/var/confluence'
+default['confluence']['run_user']                     = 'confluence'
+default['confluence']['log_dir']                      = '/var/log/confluence'
+default['confluence']['pid_dir']                      = "#{node['confluence']['install_path']}/current/work"
+default['confluence']['database_name']                = 'confluence'
+default['confluence']['database_user']                = 'confluence'
+default['confluence']['database_password']            = secure_password
+default['confluence']['bind_tomcat_port']             = '8000'
+default['confluence']['bind_http_port']               = '8080'
+default['confluence']['bind_ajp_port']                = '8009'
+default['confluence']['context_path']                 = '/'
+default['confluence']['hostname']                     = 'confluence'
+default['confluence']['domainname']                   = "#{node['confluence']['hostname']}.#{node['domain']}"
+default['confluence']['bind_address']                 = '_default_'
+default['confluence']['certificate']['data_bag']      = nil
+default['confluence']['certificate']['data_bag_type'] = 'unencrypted'
+default['confluence']['certificate']['search_id']     = 'cups'
+default['confluence']['certificate']['cert_file']     = "#{node['fqdn']}.pem"
+default['confluence']['certificate']['key_file']      = "#{node['fqdn']}.key"
+default['confluence']['certificate']['chain_file']    = "#{node['hostname']}-bundle.crt"
+

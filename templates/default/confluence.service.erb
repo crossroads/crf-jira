@@ -6,10 +6,10 @@ After=network.target
 
 [Service] 
 Type=forking
-PIDFile=<%= node[:confluence][:pid_dir] %>/catalina.pid
-ExecStart=<%= node[:confluence][:install_path] %>/current/bin/startup.sh
-ExecStop=<%= node[:confluence][:install_path] %>/current/bin/shutdown.sh
-User=<%= node[:confluence][:run_user] %>
+PIDFile=<%= node['confluence']['pid_dir'] %>/catalina.pid
+ExecStart=<%= node['confluence']['install_path'] %>/current/bin/startup.sh
+ExecStop=<%= node['confluence']['install_path'] %>/current/bin/shutdown.sh
+User=<%= node['confluence']['run_user'] %>
 
 [Install] 
 WantedBy=multi-user.target 

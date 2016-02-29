@@ -1,31 +1,31 @@
-<VirtualHost <%= @node[:confluence][:bind_address] %>:80>
+<VirtualHost <%= @node['confluence']['bind_address'] %>:80>
 
-  ServerName  <%= @node[:confluence][:domainname] %>
-  ServerAlias <%= @node[:confluence][:hostname] %>
+  ServerName  <%= @node['confluence']['domainname'] %>
+  ServerAlias <%= @node['confluence']['hostname'] %>
 
   RewriteEngine On
 
-  RewriteRule /(.*) https://<%= @node[:confluence][:domainname] %>/$1 [R=permanent,NE]
+  RewriteRule /(.*) https://<%= @node['confluence']['domainname'] %>/$1 [R=permanent,NE]
 
 </VirtualHost>
 
-<VirtualHost <%= @node[:confluence][:bind_address] %>:443>
+<VirtualHost <%= @node['confluence']['bind_address'] %>:443>
 
-  ServerName  <%= @node[:confluence][:domainname] %>
-  ServerAlias <%= @node[:confluence][:hostname] %>
+  ServerName  <%= @node['confluence']['domainname'] %>
+  ServerAlias <%= @node['confluence']['hostname'] %>
 
   SSLEngine On
 
-  #SSLCertificateFile      /etc/pki/tls/certs/<%= @node[:fqdn] %>.crt
-  #SSLCertificateKeyFile   /etc/pki/tls/private/<%= @node[:fqdn] %>.key
-  #SSLCertificateChainFile /etc/pki/tls/certs/ca_intermediate.crt
+  SSLCertificateFile      /etc/pki/tls/certs/<%= @node['confluence']['certificate']['cert_file'] %>
+  SSLCertificateKeyFile   /etc/pki/tls/private/<%= @node['confluence']['certificate']['key_file'] %>
+  SSLCertificateChainFile /etc/pki/tls/certs/<%= @node['confluence']['certificate']['chain_file'] %>
 
   ProxyRequests Off
   <Proxy *>
     Require all granted
   </Proxy>
 
-  ProxyPass        / http://localhost:<%= @node[:confluence][:bind_http_port] %>/
-  ProxyPassReverse / http://localhost:<%= @node[:confluence][:bind_http_port] %>/
+  ProxyPass        / http://localhost:<%= @node['confluence']['bind_http_port'] %>/
+  ProxyPassReverse / http://localhost:<%= @node['confluence']['bind_http_port'] %>/
 
 </VirtualHost>
