@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: confluence
+# Cookbook Name:: jira
 # Spec:: default
 #
 # Copyright 2015 Crossroads Foundation
@@ -19,7 +19,7 @@
 
 require 'spec_helper'
 
-describe 'confluence::default' do
+describe 'jira::default' do
 
   context 'When all attributes are default, on an unspecified platform' do
 

@@ -1,31 +1,31 @@
-<VirtualHost <%= @node['confluence']['bind_address'] %>:80>
+<VirtualHost <%= @node['jira']['bind_address'] %>:80>
 
-  ServerName  <%= @node['confluence']['domainname'] %>
-  ServerAlias <%= @node['confluence']['hostname'] %>
+  ServerName  <%= @node['jira']['domainname'] %>
+  ServerAlias <%= @node['jira']['hostname'] %>
 
   RewriteEngine On
 
-  RewriteRule /(.*) https://<%= @node['confluence']['domainname'] %>/$1 [R=permanent,NE]
+  RewriteRule /(.*) https://<%= @node['jira']['domainname'] %>/$1 [R=permanent,NE]
 
 </VirtualHost>
 
-<VirtualHost <%= @node['confluence']['bind_address'] %>:443>
+<VirtualHost <%= @node['jira']['bind_address'] %>:443>
 
-  ServerName  <%= @node['confluence']['domainname'] %>
-  ServerAlias <%= @node['confluence']['hostname'] %>
+  ServerName  <%= @node['jira']['domainname'] %>
+  ServerAlias <%= @node['jira']['hostname'] %>
 
   SSLEngine On
 
-  SSLCertificateFile      /etc/pki/tls/certs/<%= @node['confluence']['certificate']['cert_file'] %>
-  SSLCertificateKeyFile   /etc/pki/tls/private/<%= @node['confluence']['certificate']['key_file'] %>
-  SSLCertificateChainFile /etc/pki/tls/certs/<%= @node['confluence']['certificate']['chain_file'] %>
+  SSLCertificateFile      /etc/pki/tls/certs/<%= @node['jira']['certificate']['cert_file'] %>
+  SSLCertificateKeyFile   /etc/pki/tls/private/<%= @node['jira']['certificate']['key_file'] %>
+  SSLCertificateChainFile /etc/pki/tls/certs/<%= @node['jira']['certificate']['chain_file'] %>
 
   ProxyRequests Off
   <Proxy *>
     Require all granted
   </Proxy>
 
-  ProxyPass        / http://localhost:<%= @node['confluence']['bind_http_port'] %>/
-  ProxyPassReverse / http://localhost:<%= @node['confluence']['bind_http_port'] %>/
+  ProxyPass        / http://localhost:<%= @node['jira']['bind_http_port'] %>/
+  ProxyPassReverse / http://localhost:<%= @node['jira']['bind_http_port'] %>/
 
 </VirtualHost>
