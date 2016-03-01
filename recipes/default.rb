@@ -16,19 +16,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "java"
-include_recipe "java::purge_packages"
-include_recipe "postgresql"
-include_recipe "postgresql::yum_pgdg_postgresql"
-include_recipe "postgresql::server"
-include_recipe "apache2"
-include_recipe "apache2::mod_rewrite"
-include_recipe "apache2::mod_proxy"
-include_recipe "apache2::mod_proxy_http"
-include_recipe "apache2::mod_proxy_ajp"
-include_recipe "apache2::mod_ssl"
-include_recipe "database::postgresql"
-include_recipe "graphviz"
+include_recipe 'java'
+include_recipe 'java::purge_packages'
+include_recipe 'postgresql'
+include_recipe 'postgresql::yum_pgdg_postgresql'
+include_recipe 'postgresql::server'
+include_recipe 'apache2'
+include_recipe 'apache2::mod_rewrite'
+include_recipe 'apache2::mod_proxy'
+include_recipe 'apache2::mod_proxy_http'
+include_recipe 'apache2::mod_proxy_ajp'
+include_recipe 'apache2::mod_ssl'
+include_recipe 'database::postgresql'
+include_recipe 'graphviz'
 
 user node['confluence']['run_user'] do
   comment "User that Confluence runs under"
@@ -72,24 +72,24 @@ end
 
 unless FileTest.exists?("#{node['confluence']['install_path']}/#{node['confluence']['version']}")
 
-  remote_file "confluence" do
+  remote_file 'confluence' do
     path "#{Chef::Config['file_cache_path']}/confluence.tar.gz"
     source "http://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-#{node['confluence']['version']}.tar.gz"
   end
 
-  bash "untar-confluence" do
+  bash 'untar-confluence' do
     code "(cd #{Chef::Config['file_cache_path']}; tar zxvf #{Chef::Config['file_cache_path']}/confluence.tar.gz)"
   end
 
-  bash "install-confluence" do
+  bash 'install-confluence' do
     code "mv #{Chef::Config['file_cache_path']}/atlassian-confluence-#{node['confluence']['version']} #{node['confluence']['install_path']}/#{node['confluence']['version']}"
   end
 
-  bash "set-confluence-permissions" do
+  bash 'set-confluence-permissions' do
     code "chown -R #{node['confluence']['run_user']} #{node['confluence']['install_path']}/#{node['confluence']['version']} #{node['confluence']['shared_path']}"
   end
 
-  bash "cleanup-confluence" do
+  bash 'cleanup-confluence' do
     code "rm -rf #{Chef::Config['file_cache_path']}/confluence.tar.gz"
   end
 
@@ -137,19 +137,19 @@ firewall_rule 'confluence-ports' do
   port      [80, 443]
 end
 
-template "/usr/lib/systemd/system/confluence.service" do
+template '/usr/lib/systemd/system/confluence.service' do
   source   'confluence.service.erb'
 end
 
-service "confluence" do
+service 'confluence' do
   supports :start => true, :stop => true, :restart => true
   action [ :enable, :start ]
 end
 
 template "#{node['confluence']['install_path']}/current/confluence/WEB-INF/classes/confluence-init.properties" do
-  source   "confluence-init.properties.erb"
+  source   'confluence-init.properties.erb'
   owner    node['confluence']['run_user']
-  mode     "0640"
+  mode     '0640'
   notifies :reload, 'service[confluence]'
 end
 
@@ -164,22 +164,22 @@ certificate_manage 'confluence' do
 end
 
 template "#{node['apache']['dir']}/sites-available/confluence.conf" do
-  source "apache2.conf.erb"
+  source 'apache2.conf.erb'
   owner  node['apache']['user']
   group  node['apache']['user']
-  mode   "0640"
+  mode   '0640'
   backup false
   notifies :restart, 'service[confluence]'
 end
 
 template "#{node['confluence']['install_path']}/current/conf/server.xml" do
-  source "server.xml.erb"
+  source 'server.xml.erb'
   owner node['confluence']['run_user']
-  mode   "0640"
+  mode   '0640'
   backup false
   notifies :restart, 'service[confluence]'
 end
 
-apache_site "confluence" do
+apache_site 'confluence' do
   enable true
 end
