@@ -1,0 +1,26 @@
+<Server port="<%= @node['confluence']['bind_tomcat_port'] %>" shutdown="SHUTDOWN" debug="0">
+  <Service name="Tomcat-Standalone">
+    <Connector port="<%= @node['confluence']['bind_http_port'] %>"
+               connectionTimeout="20000"
+               redirectPort="8443"
+               maxThreads="200"
+               minSpareThreads="10"
+               enableLookups="false"
+               acceptCount="10"
+               debug="0"
+               URIEncoding="UTF-8"
+               protocol="org.apache.coyote.http11.Http11NioProtocol"
+               proxyName="<%= @node['confluence']['domainname'] %>"
+               proxyPort="443"
+               scheme="https" />
+
+    <Engine name="Standalone" defaultHost="localhost" debug="0">
+      <Host name="localhost" debug="0" appBase="webapps" unpackWARs="true" autoDeploy="false">
+        <Context path="" docBase="../confluence" debug="0" reloadable="false" useHttpOnly="true">
+          <!-- Logger is deprecated in Tomcat 5.5. Logging configuration for Confluence is specified in confluence/WEB-INF/classes/log4j.properties -->
+          <Manager pathname="" />
+        </Context>
+      </Host>
+    </Engine>
+  </Service>
+</Server>

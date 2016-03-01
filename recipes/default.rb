@@ -169,6 +169,15 @@ template "#{node['apache']['dir']}/sites-available/confluence.conf" do
   group  node['apache']['user']
   mode   "0640"
   backup false
+  notifies :restart, 'service[confluence]'
+end
+
+template "#{node['confluence']['install_path']}/current/conf/server.xml" do
+  source "server.xml.erb"
+  owner node['confluence']['run_user']
+  mode   "0640"
+  backup false
+  notifies :restart, 'service[confluence]'
 end
 
 apache_site "confluence" do
