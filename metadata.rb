@@ -4,7 +4,7 @@ maintainer_email 'itdept@crossroads.org.hk'
 license          'Apache 2.0'
 description      'Installs and configures Atlassian JIRA'
 long_description 'Installs and configures Atlassian JIRA'
-version          '0.1.0'
+version          '0.1.1'
 
 depends 'apache2',            '>= 3.1.0'
 depends 'java',               '>= 1.31.0'

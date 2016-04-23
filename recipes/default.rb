@@ -182,3 +182,9 @@ end
 apache_site 'jira' do
   enable true
 end
+
+cron 'remove-jira-backups' do
+  command "/usr/bin/find #{node['jira']['shared_path']}/export -mtime +30 -type f -name \\*.zip -exec rm -rf \\{} \\;"
+  minute 0
+  hour   0
+end
